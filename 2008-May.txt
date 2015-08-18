@@ -1,0 +1,136 @@
+From rflegel at gmail.com  Tue May  6 23:20:20 2008
+From: rflegel at gmail.com (Ryan)
+Date: Tue, 6 May 2008 15:20:20 -0600
+Subject: [Windstille-devel] [Windstille-commit] r1604 - in trunk: .
+	mediawiki2git
+In-Reply-To: <200805062100.m46L0IAl005206@sheep.berlios.de>
+References: <200805062100.m46L0IAl005206@sheep.berlios.de>
+Message-ID: <5a5496320805061420n4544c403r24845ff2a8d324db@mail.gmail.com>
+
+On Tue, May 6, 2008 at 3:00 PM, grumbel at BerliOS
+<grumbel at mail.berlios.de> wrote:
+> Author: grumbel
+>  Date: 2008-05-06 23:00:17 +0200 (Tue, 06 May 2008)
+>  New Revision: 1604
+>
+>  Added:
+>    trunk/mediawiki2git/
+>    trunk/mediawiki2git/mediawiki-export.sh
+>    trunk/mediawiki2git/mediawiki-raw.sh
+>    trunk/mediawiki2git/mediawiki2git.rb
+>  Log:
+>  Added some export scripts to get data out of Wiki
+
+Why not just export the database contents? Or are you trying to do
+something else?
+
+-- 
+Ryan
+
+
+From grumbel at gmail.com  Tue May  6 23:24:27 2008
+From: grumbel at gmail.com (Ingo Ruhnke)
+Date: Tue, 6 May 2008 23:24:27 +0200
+Subject: [Windstille-devel] [Windstille-commit] r1604 - in trunk: .
+	mediawiki2git
+In-Reply-To: <5a5496320805061420n4544c403r24845ff2a8d324db@mail.gmail.com>
+References: <200805062100.m46L0IAl005206@sheep.berlios.de>
+	<5a5496320805061420n4544c403r24845ff2a8d324db@mail.gmail.com>
+Message-ID: <4f45b570805061424h6ae01883nf2bd38bfd059bd3a@mail.gmail.com>
+
+On Tue, May 6, 2008 at 11:20 PM, Ryan <rflegel at gmail.com> wrote:
+>  Why not just export the database contents? Or are you trying to do
+>  something else?
+
+I am getting rid of the Wiki and moving the content into SVN.
+
+-- 
+WWW: http://pingus.seul.org/~grumbel/
+Blog: http://grumbel.blogspot.com/
+JabberID: xmpp.grumbel at jabber.org
+ICQ: 59461927
+
+
+From rflegel at gmail.com  Tue May  6 23:31:51 2008
+From: rflegel at gmail.com (Ryan)
+Date: Tue, 6 May 2008 15:31:51 -0600
+Subject: [Windstille-devel] [Windstille-commit] r1604 - in trunk: .
+	mediawiki2git
+In-Reply-To: <4f45b570805061424h6ae01883nf2bd38bfd059bd3a@mail.gmail.com>
+References: <200805062100.m46L0IAl005206@sheep.berlios.de>
+	<5a5496320805061420n4544c403r24845ff2a8d324db@mail.gmail.com>
+	<4f45b570805061424h6ae01883nf2bd38bfd059bd3a@mail.gmail.com>
+Message-ID: <5a5496320805061431g3350771fya43111c650b832ce@mail.gmail.com>
+
+On Tue, May 6, 2008 at 3:24 PM, Ingo Ruhnke <grumbel at gmail.com> wrote:
+> On Tue, May 6, 2008 at 11:20 PM, Ryan <rflegel at gmail.com> wrote:
+>  >  Why not just export the database contents? Or are you trying to do
+>  >  something else?
+>
+>  I am getting rid of the Wiki and moving the content into SVN.
+
+Ah. What don't you like about the wiki that is better with svn?
+
+-- 
+Ryan
+
+
+From grumbel at gmail.com  Tue May  6 23:50:54 2008
+From: grumbel at gmail.com (Ingo Ruhnke)
+Date: Tue, 6 May 2008 23:50:54 +0200
+Subject: [Windstille-devel] [Windstille-commit] r1604 - in trunk: .
+	mediawiki2git
+In-Reply-To: <5a5496320805061431g3350771fya43111c650b832ce@mail.gmail.com>
+References: <200805062100.m46L0IAl005206@sheep.berlios.de>
+	<5a5496320805061420n4544c403r24845ff2a8d324db@mail.gmail.com>
+	<4f45b570805061424h6ae01883nf2bd38bfd059bd3a@mail.gmail.com>
+	<5a5496320805061431g3350771fya43111c650b832ce@mail.gmail.com>
+Message-ID: <4f45b570805061450y70e66d92h7927bfbeb62ea5dd@mail.gmail.com>
+
+On Tue, May 6, 2008 at 11:31 PM, Ryan <rflegel at gmail.com> wrote:
+>  Ah. What don't you like about the wiki that is better with svn?
+
+One reason is lack of editing speed in Wiki, especially when it comes
+to copying content between different pages a Wiki is just slow, which
+makes reorganization annoying. The other is kind of the result of the
+first, a Wiki just tends to collect to much junk, leaving to plenty of
+duplicate, outdated or otherwise useless information. Not that SVN
+magically fixes that, but reducing the user count and having the
+abiltiy to quickly copy&paste between buffers should help quite a bit,
+being able to grep around is of course a welcome addition too.
+
+I basically want to do a complete rewrite of the Wiki content and I
+prefer to do that in plain text in SVN then via Wiki.
+
+-- 
+WWW: http://pingus.seul.org/~grumbel/
+Blog: http://grumbel.blogspot.com/
+JabberID: xmpp.grumbel at jabber.org
+ICQ: 59461927
+
+
+From rflegel at gmail.com  Tue May  6 23:56:55 2008
+From: rflegel at gmail.com (Ryan)
+Date: Tue, 6 May 2008 15:56:55 -0600
+Subject: [Windstille-devel] [Windstille-commit] r1604 - in trunk: .
+	mediawiki2git
+In-Reply-To: <4f45b570805061450y70e66d92h7927bfbeb62ea5dd@mail.gmail.com>
+References: <200805062100.m46L0IAl005206@sheep.berlios.de>
+	<5a5496320805061420n4544c403r24845ff2a8d324db@mail.gmail.com>
+	<4f45b570805061424h6ae01883nf2bd38bfd059bd3a@mail.gmail.com>
+	<5a5496320805061431g3350771fya43111c650b832ce@mail.gmail.com>
+	<4f45b570805061450y70e66d92h7927bfbeb62ea5dd@mail.gmail.com>
+Message-ID: <5a5496320805061456g5329dad5m353497dc604dcf9a@mail.gmail.com>
+
+>  I basically want to do a complete rewrite of the Wiki content and I
+>  prefer to do that in plain text in SVN then via Wiki.
+
+I was going to suggest closing off the wiki to only let certain people
+edit, but yeah, restructuring wikis are very time-consuming. Without a
+well-defined structure or taxonomy, things get messy pretty quick
+(SuperTux wiki is a pretty good example of this :).
+
+-- 
+Ryan
+
+

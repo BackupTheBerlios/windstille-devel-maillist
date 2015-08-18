@@ -1,0 +1,63 @@
+From Brian.Wei at agcocorp.com  Mon Jul 30 16:27:42 2007
+From: Brian.Wei at agcocorp.com (Wei, Brian)
+Date: Mon, 30 Jul 2007 10:27:42 -0400
+Subject: [Windstille-devel] Txt2image conversion (Text2png.cpp)
+Message-ID: <1672F418EEFEEF449C42C89BB50DCCEE02D95097@aghesexg01.agcocorp.com>
+
+Dear Developer at Windstelle:
+
+I am new to this mailing list. I am interested to find some open source to
+convert a text file into a jpg or tiff image so a portable photo printer can
+print it out.  I did a code search in koders.com
+
+http://www.koders.com/cpp/fidEC2143FDBF5639DECDB6DDD558B93037B911CF8D.aspx?s
+=text2image+
+<http://www.koders.com/cpp/fidEC2143FDBF5639DECDB6DDD558B93037B911CF8D.aspx?
+s=text2image+> 
+
+It seemed to me 
+	txt2png.cpp
+</cpp/fidEC2143FDBF5639DECDB6DDD558B93037B911CF8D.aspx?s=text2image+> 
+and several other files under txt2png folder will do the text to image
+conversion.
+
+I downloaded windstille-0.3.0.tar.bz2
+<http://download2.berlios.de/windstille/windstille-0.3.0.tar.bz2>  and sever
+other packages listed under the download page but neither of the package
+include txt2pgn.cpp.
+I tried to use SVN to check out the code from the main trunk:
+	svn co svn://svn.berlios.de/windstille/trunk/ 
+However,  my svn client always failed in connecting to the SVN server (I am
+in US).
+Can anybody help:
+	a. Whether txtpgn.cpp will do the text2image conversion?
+	b. Why the txt2pgn.cpp is not included in the bz2 or winZip package?
+	c. How can I download the whole source including txt2pgn.cpp?
+Thanks in advance,
+
+Brian Wei, 
+Senior Product Engineer
+Global Technology By AGCO (GTA)
+AGCO Corporation
+420 Lincoln Blvd, P.O.Box 4100,
+Hesston, KS, 67062
+Phone: (620)327-5517, Fax: (620)327-6399
+
+
+
+****************************************************************************
+****************************************************************************
+*************************************                       This email is
+intended solely for the use of the individual to whom it is addressed and
+may contain confidential and/or privileged material. Any views or opinions
+presented are solely those of the author and do not necessarily represent
+those of AGCO. If you are not the intended recipient, be advised that you
+have received this email in error and that any use, dissemination,
+forwarding, printing or copying of this email is strictly prohibited.
+Neither AGCO nor the sender accepts any responsibility for viruses and it is
+your responsibility to scan and virus check the e-mail and its attachment(s)
+(if any). 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/windstille-devel/attachments/20070730/63ecb2a9/attachment.html>
+

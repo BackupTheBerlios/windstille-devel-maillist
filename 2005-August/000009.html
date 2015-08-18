@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Windstille-devel] Jumping and climbing on to platforms
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/windstille-devel/2005-August/index.html" >
+   <LINK REL="made" HREF="mailto:windstille-devel%40lists.berlios.de?Subject=Re%3A%20%5BWindstille-devel%5D%20Jumping%20and%20climbing%20on%20to%20platforms&In-Reply-To=%3C200508081344.43762.david.kamphausen%40web.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000008.html">
+   <LINK REL="Next"  HREF="000010.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Windstille-devel] Jumping and climbing on to platforms</H1>
+    <B>David Kamphausen</B> 
+    <A HREF="mailto:windstille-devel%40lists.berlios.de?Subject=Re%3A%20%5BWindstille-devel%5D%20Jumping%20and%20climbing%20on%20to%20platforms&In-Reply-To=%3C200508081344.43762.david.kamphausen%40web.de%3E"
+       TITLE="[Windstille-devel] Jumping and climbing on to platforms">david.kamphausen at web.de
+       </A><BR>
+    <I>Mon Aug  8 13:44:42 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000008.html">[Windstille-devel] Jumping and climbing on to platforms
+</A></li>
+        <LI>Next message: <A HREF="000010.html">[Windstille-devel] Jumping and climbing on to platforms
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#9">[ date ]</a>
+              <a href="thread.html#9">[ thread ]</a>
+              <a href="subject.html#9">[ subject ]</a>
+              <a href="author.html#9">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>As for grumbel's question concerning the contact-API, I'd add:
+1) Signal_v1&lt;CollisionObject&amp;&gt; on_contact
+2) Signal_v1&lt;CollisionObject&amp;&gt; on_contact_lost
+to CollisionObject, which are called whenever a contact happens and when it's 
+lost.
+
+Am Sonntag, 7. August 2005 16:50 schrieb <A HREF="https://lists.berlios.de/mailman/listinfo/windstille-devel">james at jamesjrg.com</A>:
+&gt;<i> Do we yet have a plan for how we are going to do this?
+</I>&gt;<i> I understand that because a) you need to be directly underneath a platform
+</I>&gt;<i> to be bale to jump on it but b) we have pixel by pixel movement, we need to
+</I>&gt;<i> do something like:
+</I>&gt;<i>
+</I>&gt;<i> 1. when jump is pressed, search for nearby climbable things a short
+</I>&gt;<i> distance above our head
+</I>This is not so easy. Tilemap and simple objects must be searched for a free 
+edge. This would be Flashback's style of movement. We could apart from this,
+add some tolerance to the clinging to the edge for a start.
+&gt;<i> 2. if something climbable is found close by, automatically move the player
+</I>&gt;<i> underneath it and jump
+</I>That would be a nice test for the parent/child behaviour of CollisionObject.
+As soon as the player is clinging to the platform, he gets a child of the 
+elevator and is then moved with it. For the up-climbing animation, the 
+player's position would then lineary moved up. In the meantime the 
+finger-collision-rectangle would remain on the edge of the platform.
+
+After the upmovement the player has to move a little sideways.
+
+&gt;<i> 3. At the top of the jump freeze the player in position and switch to the
+</I>&gt;<i> hanging animation
+</I>&gt;<i> 4. If whilst in this position the player pushes up, play the climbing
+</I>&gt;<i> animation and move the player on to the new platform
+</I>&gt;<i>
+</I>&gt;<i> This strikes me as an outstandingly hard task, is anyone working on this?
+</I>No, at least not me.
+
+&gt;<i> If not, can we not bodge some sort of shortcut?
+</I>We could leave out step 1 for a start.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000008.html">[Windstille-devel] Jumping and climbing on to platforms
+</A></li>
+	<LI>Next message: <A HREF="000010.html">[Windstille-devel] Jumping and climbing on to platforms
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#9">[ date ]</a>
+              <a href="thread.html#9">[ thread ]</a>
+              <a href="subject.html#9">[ subject ]</a>
+              <a href="author.html#9">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/windstille-devel">More information about the Windstille-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Windstille-devel] Player movement
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/windstille-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:windstille-devel%40lists.berlios.de?Subject=Re%3A%20%5BWindstille-devel%5D%20Player%20movement&In-Reply-To=%3C200507131504.35184.david.kamphausen%40web.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000003.html">
+   <LINK REL="Next"  HREF="000005.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Windstille-devel] Player movement</H1>
+    <B>David Kamphausen</B> 
+    <A HREF="mailto:windstille-devel%40lists.berlios.de?Subject=Re%3A%20%5BWindstille-devel%5D%20Player%20movement&In-Reply-To=%3C200507131504.35184.david.kamphausen%40web.de%3E"
+       TITLE="[Windstille-devel] Player movement">david.kamphausen at web.de
+       </A><BR>
+    <I>Wed Jul 13 15:04:34 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000003.html">[Windstille-devel] Player class
+</A></li>
+        <LI>Next message: <A HREF="000005.html">[Windstille-devel] Player movement
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#4">[ date ]</a>
+              <a href="thread.html#4">[ thread ]</a>
+              <a href="subject.html#4">[ subject ]</a>
+              <a href="author.html#4">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi!
+Some more questions concerning player's movement and collision:
+1) ATM the player doesn't change his y-coordinate while jumping. Is this 
+intended and should this stay this way? In that case I've to do small changes 
+to CollisionObject, so that you can easily exchange or modify the 
+collision-shape. Which leads directly to the next question:
+2) How shall we handle small jumps upwards? Lets say I take the current 
+run-jump and end up on a small block above the current ground. How do we 
+handle the coordinate shift? I think we have to include the current 
+jumping-arc somehow in the code, so that collision detection can be done 
+correctly. (Which leads to the problem that in different heights the 
+character stand up differently on landing)
+3) I know the animation isn't there yet, but what about the up-jumping 
+behaviour?
+
+After reading the wiki again, I discovered this problem arises for ducking, 
+too.
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000003.html">[Windstille-devel] Player class
+</A></li>
+	<LI>Next message: <A HREF="000005.html">[Windstille-devel] Player movement
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#4">[ date ]</a>
+              <a href="thread.html#4">[ thread ]</a>
+              <a href="subject.html#4">[ subject ]</a>
+              <a href="author.html#4">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/windstille-devel">More information about the Windstille-devel
+mailing list</a><br>
+</body></html>

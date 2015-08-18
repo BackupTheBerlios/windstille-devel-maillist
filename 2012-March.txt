@@ -1,0 +1,14 @@
+From bogus@does.not.exist.com  Wed Mar 14 16:35:06 2012
+From: bogus@does.not.exist.com ()
+Date: Wed, 14 Mar 2012 15:35:06 -0000
+Subject: No subject
+Message-ID: <mailman.0.1331739305.14577.windstille-devel@lists.berlios.de>
+
+(state.set_active()). Sadly enough I wasn't able to trace it back anymore.
+On Sunday evening the bug appeared the first time, so I think, that it has 
+something to do with this parameter-clean-up.
+Any ideas?
+
+David
+
+

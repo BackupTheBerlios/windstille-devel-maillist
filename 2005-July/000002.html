@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Windstille-devel] Re: collision detection questions
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/windstille-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:windstille-devel%40lists.berlios.de?Subject=Re%3A%20%5BWindstille-devel%5D%20Re%3A%20collision%20detection%20questions&In-Reply-To=%3C871x67ofal.fsf%40gmx.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000001.html">
+   <LINK REL="Next"  HREF="000003.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Windstille-devel] Re: collision detection questions</H1>
+    <B>Ingo Ruhnke</B> 
+    <A HREF="mailto:windstille-devel%40lists.berlios.de?Subject=Re%3A%20%5BWindstille-devel%5D%20Re%3A%20collision%20detection%20questions&In-Reply-To=%3C871x67ofal.fsf%40gmx.de%3E"
+       TITLE="[Windstille-devel] Re: collision detection questions">grumbel at gmx.de
+       </A><BR>
+    <I>Sat Jul  9 23:11:46 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000001.html">[Windstille-devel] Re: collision detection questions
+</A></li>
+        <LI>Next message: <A HREF="000003.html">[Windstille-devel] Player class
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>David Kamphausen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/windstille-devel">david.kamphausen at web.de</A>&gt; writes:
+
+&gt;<i> Am Samstag, 9. Juli 2005 07:03 schrieb Ingo Ruhnke:
+</I>&gt;&gt;<i> Use Entity, not GameObject. GameObject is completly abstract and can
+</I>&gt;&gt;<i> represent anything, while Entity represents an object in the world.
+</I>&gt;<i>
+</I>&gt;<i> I assume that the Player class will sometime be derived from Entity, too?
+</I>
+Yes.
+
+&gt;<i> Maybe I wasn't clear enough. We will surely integrate slopes into
+</I>&gt;<i> the tilemap, right?
+</I>
+Maybe, but it isn't a priority at the moment.
+
+&gt;<i> So there has to be some collision detection e.g. between this slope
+</I>&gt;<i> and the player. I thought it would be practical to use the code out
+</I>&gt;<i> of the CollisionEngine for calculating the normal, etc. and not
+</I>&gt;<i> implementing this whole thing again (assuming that the player-figure
+</I>&gt;<i> consists out of several rectangles and triangles).
+</I>
+The tilemap is a rather easy to handle special case, so you don't need
+normals and all the stuff to resolve sticky objects. Just find out
+that player and tilemap collide, attach the player to the tilemap and
+move him up to the right position.
+
+&gt;<i> I also thought&gt; that for the action mode, there will be moments when
+</I>&gt;<i> there are: - a player - some 10 bad guys - up to 100 shots or so
+</I>&gt;<i> which can lead to some performance problems. That was, what brought
+</I>&gt;<i> up the thought of the quadtree.
+</I>
+The tilemap already has direct positional access, so you don't need a
+quadtree there. For normal object vs object collison, yes, there is a
+need for some optimization so that you don't check collision will all
+hundrets objects in a scenario. Not sure exactly what we need, but I
+would simply create a large 2d array of linked-lists and then simply
+let all objects 'draw' themself into that 2d array and then just check
+each objects against other objects in the same cell.
+
+-- 
+WWW:      <A HREF="http://pingus.seul.org/~grumbel/">http://pingus.seul.org/~grumbel/</A> 
+JabberID: <A HREF="https://lists.berlios.de/mailman/listinfo/windstille-devel">grumbel at jabber.org</A> 
+ICQ:      59461927
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000001.html">[Windstille-devel] Re: collision detection questions
+</A></li>
+	<LI>Next message: <A HREF="000003.html">[Windstille-devel] Player class
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/windstille-devel">More information about the Windstille-devel
+mailing list</a><br>
+</body></html>

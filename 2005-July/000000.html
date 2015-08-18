@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Windstille-devel] Re: collision detection questions
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/windstille-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:windstille-devel%40lists.berlios.de?Subject=Re%3A%20%5BWindstille-devel%5D%20Re%3A%20collision%20detection%20questions&In-Reply-To=%3C87ackwpo54.fsf%40gmx.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000001.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Windstille-devel] Re: collision detection questions</H1>
+    <B>Ingo Ruhnke</B> 
+    <A HREF="mailto:windstille-devel%40lists.berlios.de?Subject=Re%3A%20%5BWindstille-devel%5D%20Re%3A%20collision%20detection%20questions&In-Reply-To=%3C87ackwpo54.fsf%40gmx.de%3E"
+       TITLE="[Windstille-devel] Re: collision detection questions">grumbel at gmx.de
+       </A><BR>
+    <I>Sat Jul  9 07:03:03 CEST 2005</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000001.html">[Windstille-devel] Re: collision detection questions
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#0">[ date ]</a>
+              <a href="thread.html#0">[ thread ]</a>
+              <a href="subject.html#0">[ subject ]</a>
+              <a href="author.html#0">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> 1) First of all - should I start with it though I didn't finish this slope 
+</I>&gt;<i> thing, yet?
+</I>
+Yes, slopes are not so important.
+
+&gt;<i> 2) GameObject will be derived from CollisionObject (and RefCounter) ? But each 
+</I>&gt;<i> GameObject's child has to define the its shape and its behaviour itself.
+</I>
+Use Entity, not GameObject. GameObject is completly abstract and can
+represent anything, while Entity represents an object in the world.
+
+&gt;<i> 3) Where should I put the CollisionEngine ? I think it would be best to 
+</I>&gt;<i> instantiate it in Sector.
+</I>
+Sector sounds good.
+
+&gt;<i> 4) MatzeB suggested, that collision with the tilemap should be done 
+</I>&gt;<i> seperately. As it makes good sense for rectangular tiles, it maybe somewhat 
+</I>&gt;<i> easier, if we integrate slope-tiles within the CollisionEngine, because this 
+</I>&gt;<i> way the hard programming on these would be saved. If I integrate some small 
+</I>&gt;<i> quadtree in it, it will easily handle all the used tiles in acceptable time.
+</I>
+Quadtree sounds overkill to me, the tilemap already gives you direct
+access to all tiles.
+
+&gt;<i> Some general question:
+</I>&gt;<i> 1) Prince of Persia, Flashback and so on have some discrete kind of movement.
+</I>&gt;<i> So every time you hit the walk key, you end up on the same spot, regardless 
+</I>&gt;<i> the time you pressed it.
+</I>
+We want to avoid the discrete movement as much as we can.
+
+&gt;<i> Otherwise we'll have to automatically &quot;arrange&quot; the player to the tiles, so 
+</I>&gt;<i> that he can climb up or down.
+</I>
+Yes, player should automatically 'jump' (or be moved there by more
+gentle means) into the right position if close enough.
+
+PS: <A HREF="https://lists.berlios.de/mailman/listinfo/windstille-devel">windstille-devel at lists.berlios.de</A> should be the official list, the
+nongnu one is however still mentioned in some webpages, need to fix
+that.
+
+-- 
+WWW:      <A HREF="http://pingus.seul.org/~grumbel/">http://pingus.seul.org/~grumbel/</A> 
+JabberID: <A HREF="https://lists.berlios.de/mailman/listinfo/windstille-devel">grumbel at jabber.org</A> 
+ICQ:      59461927
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000001.html">[Windstille-devel] Re: collision detection questions
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#0">[ date ]</a>
+              <a href="thread.html#0">[ thread ]</a>
+              <a href="subject.html#0">[ subject ]</a>
+              <a href="author.html#0">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/windstille-devel">More information about the Windstille-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,214 @@
+From david.kamphausen at web.de  Tue Aug  2 09:02:56 2005
+From: david.kamphausen at web.de (David Kamphausen)
+Date: Tue, 2 Aug 2005 09:02:56 +0200
+Subject: [Windstille-devel] assert_gl fails in sprite3d.cpp
+Message-ID: <200508020902.56865.david.kamphausen@web.de>
+
+Hi!
+assert_gl fails for me at sprite.cpp:365. It says:
+std::exception: OpenGLError while 'gl init before sprite': invalid enumerant
+So I assume, that some bad GL_* is to some gl-function?
+
+From james at jamesjrg.com  Sun Aug  7 16:50:39 2005
+From: james at jamesjrg.com (james at jamesjrg.com)
+Date: Sun, 07 Aug 2005 09:50:39 -0500
+Subject: [Windstille-devel] Jumping and climbing on to platforms
+Message-ID: <20050807095039.2fsgqmsmse0w88s8@67.15.111.134>
+
+Do we yet have a plan for how we are going to do this?
+I understand that because a) you need to be directly underneath a platform to be
+bale to jump on it but b) we have pixel by pixel movement, we need to do
+something like:
+
+1. when jump is pressed, search for nearby climbable things a short distance
+above our head
+2. if something climbable is found close by, automatically move the player
+underneath it and jump
+3. At the top of the jump freeze the player in position and switch to the
+hanging animation
+4. If whilst in this position the player pushes up, play the climbing animation
+and move the player on to the new platform
+
+This strikes me as an outstandingly hard task, is anyone working on this? If
+not, can we not bodge some sort of shortcut?
+
+James
+
+
+From david.kamphausen at web.de  Mon Aug  8 13:44:42 2005
+From: david.kamphausen at web.de (David Kamphausen)
+Date: Mon, 8 Aug 2005 13:44:42 +0200
+Subject: [Windstille-devel] Jumping and climbing on to platforms
+In-Reply-To: <20050807095039.2fsgqmsmse0w88s8@67.15.111.134>
+References: <20050807095039.2fsgqmsmse0w88s8@67.15.111.134>
+Message-ID: <200508081344.43762.david.kamphausen@web.de>
+
+As for grumbel's question concerning the contact-API, I'd add:
+1) Signal_v1<CollisionObject&> on_contact
+2) Signal_v1<CollisionObject&> on_contact_lost
+to CollisionObject, which are called whenever a contact happens and when it's 
+lost.
+
+Am Sonntag, 7. August 2005 16:50 schrieb james at jamesjrg.com:
+> Do we yet have a plan for how we are going to do this?
+> I understand that because a) you need to be directly underneath a platform
+> to be bale to jump on it but b) we have pixel by pixel movement, we need to
+> do something like:
+>
+> 1. when jump is pressed, search for nearby climbable things a short
+> distance above our head
+This is not so easy. Tilemap and simple objects must be searched for a free 
+edge. This would be Flashback's style of movement. We could apart from this,
+add some tolerance to the clinging to the edge for a start.
+> 2. if something climbable is found close by, automatically move the player
+> underneath it and jump
+That would be a nice test for the parent/child behaviour of CollisionObject.
+As soon as the player is clinging to the platform, he gets a child of the 
+elevator and is then moved with it. For the up-climbing animation, the 
+player's position would then lineary moved up. In the meantime the 
+finger-collision-rectangle would remain on the edge of the platform.
+
+After the upmovement the player has to move a little sideways.
+
+> 3. At the top of the jump freeze the player in position and switch to the
+> hanging animation
+> 4. If whilst in this position the player pushes up, play the climbing
+> animation and move the player on to the new platform
+>
+> This strikes me as an outstandingly hard task, is anyone working on this?
+No, at least not me.
+
+> If not, can we not bodge some sort of shortcut?
+We could leave out step 1 for a start.
+
+
+
+From grumbel at gmx.de  Mon Aug  8 14:26:25 2005
+From: grumbel at gmx.de (Ingo Ruhnke)
+Date: Mon, 08 Aug 2005 14:26:25 +0200
+Subject: [Windstille-devel] Jumping and climbing on to platforms
+In-Reply-To: <200508081344.43762.david.kamphausen@web.de> (David Kamphausen's
+	message of "Mon, 8 Aug 2005 13:44:42 +0200")
+References: <20050807095039.2fsgqmsmse0w88s8@67.15.111.134>
+	<200508081344.43762.david.kamphausen@web.de>
+Message-ID: <871x54iphq.fsf@gmx.de>
+
+David Kamphausen <david.kamphausen at web.de> writes:
+
+> As for grumbel's question concerning the contact-API, I'd add:
+> 1) Signal_v1<CollisionObject&> on_contact
+> 2) Signal_v1<CollisionObject&> on_contact_lost
+> to CollisionObject, which are called whenever a contact happens and when it's 
+> lost.
+
+on_contact() seems unneeded since a contact is something that the
+GameObject should create itself when colliding with another object,
+its not something that automatically happens, but something that
+is requested. We also need a class representing the contact itself,
+something like:
+
+class Contact
+{
+        enum Axis { X_AXIS, Y_AXIS };
+        enum Mode { FULL, HALF, NONE };
+
+        Axis axis;
+        Mode mode;
+};
+
+Where Axis tells you if its a contact on the x-axis (ie. walking on
+the ground) or y-axis (climbing up a ledder) (might need
+UP,DOWN,LEFT,RIGHT here instead of just axis).
+
+And where Mode tells you when you lose the contact (this could also be
+added as data to the on_contact_lost callback, so that the gameobject
+can decide in the callback if the contact is really lost), Mode refers
+to the following situations:
+
+Full Contact, contact is lost as soon as the object no longer fully
+overlaps with the ground
+
+ +----+
+ |    |
+ |    |
+ +----+
+------+
+      |
+      |
+
+
+Half Contact, contact is lost when the object no longer overlaps more
+then 50% with the ground.
+
+    +----+
+    |    |
+    |    |
+    +----+
+------+
+      |
+      |
+
+None Contact, contact is lost when the object is 100% clear from the
+ground (this is what SuperTux uses)
+
+      +----+
+      |    |
+      |    |
+      +----+
+------+
+      |
+      |
+
+>> 1. when jump is pressed, search for nearby climbable things a short
+>> distance above our head
+
+Yes, this is needed. Animation should whenever possible be
+'context-aware', so that you for example might play another anim for
+missing a ledge then for grabbing one. It also allows to move the
+player closer to the edge while jumping.
+
+>> 2. if something climbable is found close by, automatically move the player
+>> underneath it and jump
+
+Best way would be to move the player closer while jumping and not just
+plop him into the right possition while starting the jump.
+
+>> 3. At the top of the jump freeze the player in position and switch to the
+>> hanging animation
+
+Yep.
+
+>> 4. If whilst in this position the player pushes up, play the climbing
+>> animation and move the player on to the new platform
+>>
+>> This strikes me as an outstandingly hard task, is anyone working on this?
+
+Doesn't sound that hard, just a bit tricky to get everything right.
+
+>> If not, can we not bodge some sort of shortcut?
+> We could leave out step 1 for a start.
+
+1) sounds pretty easy, just search for a edge in the tilemap, simple
+for-loop across a small area above the player should give you the
+available edges then you only need to find out which are close enough.
+We could even add special tileflags to mark edges if that helps.
+
+-- 
+WWW:      http://pingus.seul.org/~grumbel/ 
+JabberID: grumbel at jabber.org 
+ICQ:      59461927
+
+
+From james at jamesjrg.com  Sun Aug 14 15:39:33 2005
+From: james at jamesjrg.com (james at jamesjrg.com)
+Date: Sun, 14 Aug 2005 08:39:33 -0500
+Subject: [Windstille-devel] Saving the game
+Message-ID: <20050814083933.2ku27fozuplwkcg8@67.15.111.134>
+
+When in Windstille are you supposed to save the game? Whenever you change
+sector? By using special computers or something in the game world? Via a menu
+option?
+
+James
+
+

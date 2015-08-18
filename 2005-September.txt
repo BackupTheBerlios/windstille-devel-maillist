@@ -1,0 +1,25 @@
+From matze at braunis.de  Sat Sep 17 12:47:07 2005
+From: matze at braunis.de (Matze Braun)
+Date: Sat, 17 Sep 2005 12:47:07 +0200
+Subject: [Windstille-devel] Collision-Detection and Physics
+Message-ID: <1126954027.7986.4.camel@taylor>
+
+Hi,
+
+I was trying to implement some simple physics behaviour (bouncing when
+hitting a wall). But I can't manage to get it working with the current
+collision code, it always ends in hundrets of similar collisions and
+finally a "too much tries in collision detection".
+I committed the code to svn, just load the industrial level and press
+the "aim" button and you should see a grenade appear and fall down
+slowly, as soon as it hits something you'll be flooded by collision
+messages.
+
+Could you take a look at it David?
+
+Greetings,
+	Matze
+
+
+
+

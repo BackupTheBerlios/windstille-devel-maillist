@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Windstille-devel] Jumping and climbing on to platforms
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/windstille-devel/2005-August/index.html" >
+   <LINK REL="made" HREF="mailto:windstille-devel%40lists.berlios.de?Subject=Re%3A%20%5BWindstille-devel%5D%20Jumping%20and%20climbing%20on%20to%20platforms&In-Reply-To=%3C871x54iphq.fsf%40gmx.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000009.html">
+   <LINK REL="Next"  HREF="000011.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Windstille-devel] Jumping and climbing on to platforms</H1>
+    <B>Ingo Ruhnke</B> 
+    <A HREF="mailto:windstille-devel%40lists.berlios.de?Subject=Re%3A%20%5BWindstille-devel%5D%20Jumping%20and%20climbing%20on%20to%20platforms&In-Reply-To=%3C871x54iphq.fsf%40gmx.de%3E"
+       TITLE="[Windstille-devel] Jumping and climbing on to platforms">grumbel at gmx.de
+       </A><BR>
+    <I>Mon Aug  8 14:26:25 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000009.html">[Windstille-devel] Jumping and climbing on to platforms
+</A></li>
+        <LI>Next message: <A HREF="000011.html">[Windstille-devel] Saving the game
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#10">[ date ]</a>
+              <a href="thread.html#10">[ thread ]</a>
+              <a href="subject.html#10">[ subject ]</a>
+              <a href="author.html#10">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>David Kamphausen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/windstille-devel">david.kamphausen at web.de</A>&gt; writes:
+
+&gt;<i> As for grumbel's question concerning the contact-API, I'd add:
+</I>&gt;<i> 1) Signal_v1&lt;CollisionObject&amp;&gt; on_contact
+</I>&gt;<i> 2) Signal_v1&lt;CollisionObject&amp;&gt; on_contact_lost
+</I>&gt;<i> to CollisionObject, which are called whenever a contact happens and when it's 
+</I>&gt;<i> lost.
+</I>
+on_contact() seems unneeded since a contact is something that the
+GameObject should create itself when colliding with another object,
+its not something that automatically happens, but something that
+is requested. We also need a class representing the contact itself,
+something like:
+
+class Contact
+{
+        enum Axis { X_AXIS, Y_AXIS };
+        enum Mode { FULL, HALF, NONE };
+
+        Axis axis;
+        Mode mode;
+};
+
+Where Axis tells you if its a contact on the x-axis (ie. walking on
+the ground) or y-axis (climbing up a ledder) (might need
+UP,DOWN,LEFT,RIGHT here instead of just axis).
+
+And where Mode tells you when you lose the contact (this could also be
+added as data to the on_contact_lost callback, so that the gameobject
+can decide in the callback if the contact is really lost), Mode refers
+to the following situations:
+
+Full Contact, contact is lost as soon as the object no longer fully
+overlaps with the ground
+
+ +----+
+ |    |
+ |    |
+ +----+
+------+
+      |
+      |
+
+
+Half Contact, contact is lost when the object no longer overlaps more
+then 50% with the ground.
+
+    +----+
+    |    |
+    |    |
+    +----+
+------+
+      |
+      |
+
+None Contact, contact is lost when the object is 100% clear from the
+ground (this is what SuperTux uses)
+
+      +----+
+      |    |
+      |    |
+      +----+
+------+
+      |
+      |
+
+&gt;&gt;<i> 1. when jump is pressed, search for nearby climbable things a short
+</I>&gt;&gt;<i> distance above our head
+</I>
+Yes, this is needed. Animation should whenever possible be
+'context-aware', so that you for example might play another anim for
+missing a ledge then for grabbing one. It also allows to move the
+player closer to the edge while jumping.
+
+&gt;&gt;<i> 2. if something climbable is found close by, automatically move the player
+</I>&gt;&gt;<i> underneath it and jump
+</I>
+Best way would be to move the player closer while jumping and not just
+plop him into the right possition while starting the jump.
+
+&gt;&gt;<i> 3. At the top of the jump freeze the player in position and switch to the
+</I>&gt;&gt;<i> hanging animation
+</I>
+Yep.
+
+&gt;&gt;<i> 4. If whilst in this position the player pushes up, play the climbing
+</I>&gt;&gt;<i> animation and move the player on to the new platform
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> This strikes me as an outstandingly hard task, is anyone working on this?
+</I>
+Doesn't sound that hard, just a bit tricky to get everything right.
+
+&gt;&gt;<i> If not, can we not bodge some sort of shortcut?
+</I>&gt;<i> We could leave out step 1 for a start.
+</I>
+1) sounds pretty easy, just search for a edge in the tilemap, simple
+for-loop across a small area above the player should give you the
+available edges then you only need to find out which are close enough.
+We could even add special tileflags to mark edges if that helps.
+
+-- 
+WWW:      <A HREF="http://pingus.seul.org/~grumbel/">http://pingus.seul.org/~grumbel/</A> 
+JabberID: <A HREF="https://lists.berlios.de/mailman/listinfo/windstille-devel">grumbel at jabber.org</A> 
+ICQ:      59461927
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000009.html">[Windstille-devel] Jumping and climbing on to platforms
+</A></li>
+	<LI>Next message: <A HREF="000011.html">[Windstille-devel] Saving the game
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#10">[ date ]</a>
+              <a href="thread.html#10">[ thread ]</a>
+              <a href="subject.html#10">[ subject ]</a>
+              <a href="author.html#10">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/windstille-devel">More information about the Windstille-devel
+mailing list</a><br>
+</body></html>

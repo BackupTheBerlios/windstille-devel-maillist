@@ -1,0 +1,124 @@
+From rflegel at gmail.com  Thu Apr  2 23:29:00 2009
+From: rflegel at gmail.com (Ryan)
+Date: Thu, 2 Apr 2009 15:29:00 -0600
+Subject: [Windstille-devel] Lots of commits recently
+Message-ID: <5a5496320904021429i6949a05ew161989903b284bf7@mail.gmail.com>
+
+I couldn't help but notice you've been making a lot of commits to
+Windstille recently, grumbel.
+
+Are you working on a release or just doing some random hacking?
+
+-- 
+Ryan
+
+
+From grumbel at gmail.com  Thu Apr  2 23:40:18 2009
+From: grumbel at gmail.com (Ingo Ruhnke)
+Date: Thu, 2 Apr 2009 23:40:18 +0200
+Subject: [Windstille-devel] Lots of commits recently
+In-Reply-To: <5a5496320904021429i6949a05ew161989903b284bf7@mail.gmail.com>
+References: <5a5496320904021429i6949a05ew161989903b284bf7@mail.gmail.com>
+Message-ID: <4f45b570904021440g2867b79fw9398db5987185110@mail.gmail.com>
+
+2009/4/2 Ryan <rflegel at gmail.com>:
+> Are you working on a release or just doing some random hacking?
+
+At the moment I'm mostly work on the editor, not so much on the game
+itself, so a new release is still quite far away, as the game will
+need some rather large changes before it gets truly playable with the
+changed level structure (no longer using tilemaps). You can check for
+updates at:
+
+http://grumbel.blogspot.com/search/label/Windstille
+
+-- 
+WWW:      http://pingus.seul.org/~grumbel/
+Blog:     http://grumbel.blogspot.com/
+JabberID: xmpp:grumbel at jabber.org
+ICQ:      59461927
+
+
+From rflegel at gmail.com  Wed Apr  8 16:42:52 2009
+From: rflegel at gmail.com (Ryan)
+Date: Wed, 8 Apr 2009 08:42:52 -0600
+Subject: [Windstille-devel] Lots of commits recently
+In-Reply-To: <4f45b570904021440g2867b79fw9398db5987185110@mail.gmail.com>
+References: <5a5496320904021429i6949a05ew161989903b284bf7@mail.gmail.com>
+	<4f45b570904021440g2867b79fw9398db5987185110@mail.gmail.com>
+Message-ID: <5a5496320904080742i576d5821y4f94e6b7768f4e7b@mail.gmail.com>
+
+2009/4/2 Ingo Ruhnke <grumbel at gmail.com>:
+> 2009/4/2 Ryan <rflegel at gmail.com>:
+>> Are you working on a release or just doing some random hacking?
+>
+> At the moment I'm mostly work on the editor, not so much on the game
+> itself, so a new release is still quite far away, as the game will
+> need some rather large changes before it gets truly playable with the
+> changed level structure (no longer using tilemaps). You can check for
+> updates at:
+>
+> http://grumbel.blogspot.com/search/label/Windstille
+
+I just had a chance to take a look and the editor is coming along
+quite nicely (and quickly). Good work.
+
+-- 
+Ryan
+
+
+From grumbel at gmail.com  Sat Apr 11 19:30:10 2009
+From: grumbel at gmail.com (Ingo Ruhnke)
+Date: Sat, 11 Apr 2009 19:30:10 +0200
+Subject: [Windstille-devel] [Windstille] Presentation
+In-Reply-To: <200904102305.27388.d.mills@guesny.net>
+References: <200903271246.16121.d.mills@guesny.net>
+	<200904101127.09062.d.mills@guesny.net>
+	<4f45b570904100821t7613b232n3d5fbb98c351caff@mail.gmail.com>
+	<200904102305.27388.d.mills@guesny.net>
+Message-ID: <4f45b570904111030p6e54258cj8f01852a6462b4aa@mail.gmail.com>
+
+2009/4/10 David Mills <d.mills at guesny.net>:
+> AKA Half-life? I was thinking along those lines too.
+
+I would prefer something more like Telltale with regular and more
+conclusive releases, but yeah, it might easily end up more like Half
+Life's episodic content where releases come only out very randomly.
+
+>> My problem with that is that its a simple one dimensional and to
+>> direct. An alternative solution for example could be that the work is
+>> more dangerous then it used to be due to NStar running low on
+>> resources, not having the material to properly secure the mines,
+>> having to improvise and as a result more accidents happen. Down the
+>> road it could of course could still be greed with RedStar using the
+>> materials for their own mines, raising prices above what NStar can
+>> afford and such or whatever, but it would be much more indirect and
+>> people wouldn't necessarily know the consequences of their actions. It
+>> would just be people doing their jobs as good as they can and trouble
+>> would still arise, due to their actions having unforeseen
+>> consequences. This could also lead to false suspicion and hate, i.e.
+>> the miners would blame RedStar for the trouble, while in reality they
+>> themselves might have good reason why the material is on short supply
+>> and as expensive as it is.
+
+> I see your point, but I'd prefer it if Jane's change of job was motivated by
+> something other than boredom/pay.
+
+Well, I didn't say that a job change should happen due to boredom/pay,
+fell free to invent something more interesting, all I am saying is
+that I really don't like previous job giver starting an assassination
+attempt on Jane early on in the game. Later on in the game there might
+be enough reason for that, but early on it just wouldn't make much
+sense and as said would also be pretty primitive.
+
+PS: We should move this discussion to the mailing list:
+
+ * https://lists.berlios.de/mailman/listinfo/windstille-devel
+
+-- 
+WWW:      http://pingus.seul.org/~grumbel/
+Blog:     http://grumbel.blogspot.com/
+JabberID: xmpp:grumbel at jabber.org
+ICQ:      59461927
+
+

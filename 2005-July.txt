@@ -1,0 +1,228 @@
+From grumbel at gmx.de  Sat Jul  9 07:03:03 2005
+From: grumbel at gmx.de (Ingo Ruhnke)
+Date: Sat, 09 Jul 2005 07:03:03 +0200
+Subject: [Windstille-devel] Re: collision detection questions
+Message-ID: <87ackwpo54.fsf@gmx.de>
+
+> 1) First of all - should I start with it though I didn't finish this slope 
+> thing, yet?
+
+Yes, slopes are not so important.
+
+> 2) GameObject will be derived from CollisionObject (and RefCounter) ? But each 
+> GameObject's child has to define the its shape and its behaviour itself.
+
+Use Entity, not GameObject. GameObject is completly abstract and can
+represent anything, while Entity represents an object in the world.
+
+> 3) Where should I put the CollisionEngine ? I think it would be best to 
+> instantiate it in Sector.
+
+Sector sounds good.
+
+> 4) MatzeB suggested, that collision with the tilemap should be done 
+> seperately. As it makes good sense for rectangular tiles, it maybe somewhat 
+> easier, if we integrate slope-tiles within the CollisionEngine, because this 
+> way the hard programming on these would be saved. If I integrate some small 
+> quadtree in it, it will easily handle all the used tiles in acceptable time.
+
+Quadtree sounds overkill to me, the tilemap already gives you direct
+access to all tiles.
+
+> Some general question:
+> 1) Prince of Persia, Flashback and so on have some discrete kind of movement.
+> So every time you hit the walk key, you end up on the same spot, regardless 
+> the time you pressed it.
+
+We want to avoid the discrete movement as much as we can.
+
+> Otherwise we'll have to automatically "arrange" the player to the tiles, so 
+> that he can climb up or down.
+
+Yes, player should automatically 'jump' (or be moved there by more
+gentle means) into the right position if close enough.
+
+PS: windstille-devel at lists.berlios.de should be the official list, the
+nongnu one is however still mentioned in some webpages, need to fix
+that.
+
+-- 
+WWW:      http://pingus.seul.org/~grumbel/ 
+JabberID: grumbel at jabber.org 
+ICQ:      59461927
+
+
+From david.kamphausen at web.de  Sat Jul  9 12:00:50 2005
+From: david.kamphausen at web.de (David Kamphausen)
+Date: Sat, 9 Jul 2005 12:00:50 +0200
+Subject: [Windstille-devel] Re: collision detection questions
+In-Reply-To: <87ackwpo54.fsf@gmx.de>
+References: <87ackwpo54.fsf@gmx.de>
+Message-ID: <200507091200.51124.david.kamphausen@web.de>
+
+Am Samstag, 9. Juli 2005 07:03 schrieb Ingo Ruhnke:
+> Use Entity, not GameObject. GameObject is completly abstract and can
+> represent anything, while Entity represents an object in the world.
+
+I assume that the Player class will sometime be derived from Entity, too?
+
+> > 4) MatzeB suggested, that collision with the tilemap should be done
+> > seperately. As it makes good sense for rectangular tiles, it maybe
+> > somewhat easier, if we integrate slope-tiles within the CollisionEngine,
+> > because this way the hard programming on these would be saved. If I
+> > integrate some small quadtree in it, it will easily handle all the used
+> > tiles in acceptable time.
+>
+> Quadtree sounds overkill to me, the tilemap already gives you direct
+> access to all tiles.
+
+Maybe I wasn't clear enough. We will surely integrate slopes into the tilemap, 
+right? So there has to be some collision detection e.g. between this slope 
+and the player. I thought it would be practical to use the code out of the 
+CollisionEngine for calculating the normal, etc. and not implementing this 
+whole thing again (assuming that the player-figure consists out of several 
+rectangles and triangles).
+I also thought that for the action mode, there will be moments when there are:
+- a player
+- some 10 bad guys
+- up to 100 shots or so
+which can lead to some performance problems. That was, what brought up the 
+thought of the quadtree.
+
+
+
+From grumbel at gmx.de  Sat Jul  9 23:11:46 2005
+From: grumbel at gmx.de (Ingo Ruhnke)
+Date: Sat, 09 Jul 2005 23:11:46 +0200
+Subject: [Windstille-devel] Re: collision detection questions
+In-Reply-To: <200507091200.51124.david.kamphausen@web.de> (David Kamphausen's message of "Sat, 9 Jul 2005 12:00:50 +0200")
+References: <87ackwpo54.fsf@gmx.de>
+	<200507091200.51124.david.kamphausen@web.de>
+Message-ID: <871x67ofal.fsf@gmx.de>
+
+David Kamphausen <david.kamphausen at web.de> writes:
+
+> Am Samstag, 9. Juli 2005 07:03 schrieb Ingo Ruhnke:
+>> Use Entity, not GameObject. GameObject is completly abstract and can
+>> represent anything, while Entity represents an object in the world.
+>
+> I assume that the Player class will sometime be derived from Entity, too?
+
+Yes.
+
+> Maybe I wasn't clear enough. We will surely integrate slopes into
+> the tilemap, right?
+
+Maybe, but it isn't a priority at the moment.
+
+> So there has to be some collision detection e.g. between this slope
+> and the player. I thought it would be practical to use the code out
+> of the CollisionEngine for calculating the normal, etc. and not
+> implementing this whole thing again (assuming that the player-figure
+> consists out of several rectangles and triangles).
+
+The tilemap is a rather easy to handle special case, so you don't need
+normals and all the stuff to resolve sticky objects. Just find out
+that player and tilemap collide, attach the player to the tilemap and
+move him up to the right position.
+
+> I also thought> that for the action mode, there will be moments when
+> there are: - a player - some 10 bad guys - up to 100 shots or so
+> which can lead to some performance problems. That was, what brought
+> up the thought of the quadtree.
+
+The tilemap already has direct positional access, so you don't need a
+quadtree there. For normal object vs object collison, yes, there is a
+need for some optimization so that you don't check collision will all
+hundrets objects in a scenario. Not sure exactly what we need, but I
+would simply create a large 2d array of linked-lists and then simply
+let all objects 'draw' themself into that 2d array and then just check
+each objects against other objects in the same cell.
+
+-- 
+WWW:      http://pingus.seul.org/~grumbel/ 
+JabberID: grumbel at jabber.org 
+ICQ:      59461927
+
+
+From david.kamphausen at web.de  Mon Jul 11 16:26:33 2005
+From: david.kamphausen at web.de (David Kamphausen)
+Date: Mon, 11 Jul 2005 16:26:33 +0200
+Subject: [Windstille-devel] Player class
+Message-ID: <200507111626.34412.david.kamphausen@web.de>
+
+As MatzeB is currently doing some more stuff, I've kept my hands from Player 
+for the moment and only slightly modified the Entity-class.
+There's a small collision-demo in the Box-class.
+
+There are still some small issues from my point of view:
+1) Entity::bind/unbind isn't needed anymore.
+2) Entity::move shouldn't do anything, i.e. Entity shouldn't override 
+CollisionObject::move OR
+Entity::move should integrate tilemap-collision with it.
+
+Where do you want to me work next? Integrate Player with Entity or do you 
+(MatzeB) do this?
+
+
+
+From david.kamphausen at web.de  Wed Jul 13 15:04:34 2005
+From: david.kamphausen at web.de (David Kamphausen)
+Date: Wed, 13 Jul 2005 15:04:34 +0200
+Subject: [Windstille-devel] Player movement
+Message-ID: <200507131504.35184.david.kamphausen@web.de>
+
+Hi!
+Some more questions concerning player's movement and collision:
+1) ATM the player doesn't change his y-coordinate while jumping. Is this 
+intended and should this stay this way? In that case I've to do small changes 
+to CollisionObject, so that you can easily exchange or modify the 
+collision-shape. Which leads directly to the next question:
+2) How shall we handle small jumps upwards? Lets say I take the current 
+run-jump and end up on a small block above the current ground. How do we 
+handle the coordinate shift? I think we have to include the current 
+jumping-arc somehow in the code, so that collision detection can be done 
+correctly. (Which leads to the problem that in different heights the 
+character stand up differently on landing)
+3) I know the animation isn't there yet, but what about the up-jumping 
+behaviour?
+
+After reading the wiki again, I discovered this problem arises for ducking, 
+too.
+
+
+From david.kamphausen at web.de  Wed Jul 13 15:19:21 2005
+From: david.kamphausen at web.de (David Kamphausen)
+Date: Wed, 13 Jul 2005 15:19:21 +0200
+Subject: [Windstille-devel] Player movement
+In-Reply-To: <200507131504.35184.david.kamphausen@web.de>
+References: <200507131504.35184.david.kamphausen@web.de>
+Message-ID: <200507131519.21609.david.kamphausen@web.de>
+
+Answering myself - I should have read the code a little more precicely.
+Y-coordinate is already changed.
+
+Am Mittwoch, 13. Juli 2005 15:04 schrieb David Kamphausen:
+> Hi!
+> Some more questions concerning player's movement and collision:
+> 1) ATM the player doesn't change his y-coordinate while jumping. Is this
+> intended and should this stay this way? In that case I've to do small
+> changes to CollisionObject, so that you can easily exchange or modify the
+> collision-shape. Which leads directly to the next question:
+> 2) How shall we handle small jumps upwards? Lets say I take the current
+> run-jump and end up on a small block above the current ground. How do we
+> handle the coordinate shift? I think we have to include the current
+> jumping-arc somehow in the code, so that collision detection can be done
+> correctly. (Which leads to the problem that in different heights the
+> character stand up differently on landing)
+> 3) I know the animation isn't there yet, but what about the up-jumping
+> behaviour?
+>
+> After reading the wiki again, I discovered this problem arises for ducking,
+> too.
+> _______________________________________________
+> Windstille-devel mailing list
+> Windstille-devel at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/windstille-devel
+
+
